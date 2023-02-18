@@ -15,26 +15,28 @@ def fmaxProfit1(prices) :
             if diff > max:
                 max = diff
     return max
-    
+
     
 def fmaxProfit(prices) :
     # O(n) solution
     length = len(prices)
-    max_profit  = 0
-    buy_pointer = 0
-    sell_pointer = 1
-    while sell_pointer < length:
-        currentProfit = prices[sell_pointer] - prices[buy_pointer] 
-        if prices[buy_pointer] < prices[sell_pointer]:
-            max_profit = max(currentProfit,max_profit)
+    max_profit = 0
+    buy = 0
+    sell = 1
+    while sell < length:
+        if prices[buy] > prices[sell]:
+            buy = sell
+            sell = sell + 1
         else:
-            buy_pointer = sell_pointer
-        sell_pointer += 1
+            diff = prices[sell] - prices[buy]
+            max_profit = max(max_profit, diff)
+            sell = sell + 1
     return max_profit
 
 def main():
     #prices = [7,6,4,3,1]
-    prices = [7,1,5,3,6,4]
+    #prices = [7,1,5,3,6,4]
+    prices = [7,4,11,1,5,3,6,4]
     print(fmaxProfit(prices))
 
 
